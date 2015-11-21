@@ -82,5 +82,19 @@ namespace PayrollTest_Isakov
             PaymentMethod pm = e.Method;
             Assert.IsTrue(pm is HoldMethod);
         }
+        [TestMethod]
+
+        public void DeleteEmployee()
+        {
+            int empID = 4;
+            AddCommissionedEmployee t = new AddCommissionedEmployee(empID, "Bill", "Home", 2500, 3.2);
+            t.Execute();
+            Employee e = PayrollDatabase.GetEmployee(empID);
+            Assert.IsNotNull(e);
+            DeleteEmployeeTransaction dt = new DeleteEmployeeTransaction(empID);
+            dt.Execute();
+            e = PayrollDatabase.GetEmployee(empID);
+            Assert.IsNull(e);
+        }
     }  
 }
